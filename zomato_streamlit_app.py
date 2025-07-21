@@ -1,17 +1,15 @@
-
 import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Zomato Data Explorer", layout="wide")
-
 st.title("Zomato Dataset Explorer")
 
-# Load the Excel file
+# Load the Excel file with correct engine
 @st.cache_data
 def load_data():
-    return pd.read_excel("dataset2.xls")
+    return pd.read_excel("dataset2.xls", engine="xlrd")
 
 df = load_data()
 
@@ -21,13 +19,9 @@ st.dataframe(df)
 st.subheader("Dataset Description")
 st.write(df.describe())
 
-st.subheader("Column Info")
-st.write(df.info())
-
-# Optional: Add histogram or count plot
-column = st.selectbox("Select column for value counts", df.columns)
+st.subheader("Value Counts by Column")
+column = st.selectbox("Choose a column", df.columns)
 if column:
-    st.write("Value counts for:", column)
     st.bar_chart(df[column].value_counts())
 
 # Correlation Heatmap
