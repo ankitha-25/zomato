@@ -9,7 +9,8 @@ st.title("Zomato Dataset Explorer")
 # Load the Excel file with correct engine
 @st.cache_data
 def load_data():
-    return pd.read_excel("dataset2.csv", engine="xlrd")
+    return pd.read_csv("dataset2.xls")  # Yes, keep the wrong extension but treat it as CSV
+
 
 df = load_data()
 
